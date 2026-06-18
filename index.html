@@ -20,8 +20,6 @@ header .meta{font-size:.82rem;opacity:.85;text-align:right;line-height:1.8}
 .btn-sm{padding:5px 12px;font-size:.75rem;border-radius:5px;border:none;cursor:pointer;font-weight:600}
 .btn-csv{background:#E8F5E9;color:#276221;border:1px solid #A5D6A7}
 .btn-csv:hover{background:#C8E6C9}
-.btn-pdf-dl{background:#FFF3E0;color:#e65100;border:1px solid #FFCC80}
-.btn-pdf-dl:hover{background:#FFE0B2}
 .kpi-row{display:flex;gap:14px;padding:20px 32px 8px;flex-wrap:wrap}
 .kpi{background:#fff;border-radius:10px;padding:16px 20px;flex:1;min-width:140px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:5px solid #2e86de}
 .kpi .label{font-size:.72rem;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
@@ -114,22 +112,21 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
     <div style="font-size:.82rem;opacity:.8;margin-top:4px">BigBasket &middot; Performance Report</div>
   </div>
   <div class="meta">
-    <div>MTD: <strong>2026-06-01 &rarr; 2026-06-14</strong></div>
-    <div>FTD: <strong>2026-06-14</strong></div>
-    <div>Generated: <strong>2026-06-17 10:48</strong></div>
+    <div>MTD: <strong>01/06/2026 &rarr; 14/06/2026</strong></div>
+    <div>FTD: <strong>14/06/2026</strong></div>
+    <div>Generated: <strong>18/06/2026 15:03</strong></div>
   </div>
-  <div class="header-actions">
-    <button class="btn btn-outline" onclick="window.print()">&#128438; Download PDF Report</button>
   </div>
 </header>
 
 <div class="kpi-row">
   <div class="kpi"><div class="label">MTD Total Writeoff Qty</div><div class="value">1,548,098</div><div class="sub">All categories &amp; cities</div></div>
-  <div class="kpi orange"><div class="label">FTD Writeoff Qty</div><div class="value">111,703</div><div class="sub">FTD: 2026-06-14</div></div>
+  <div class="kpi orange"><div class="label">FTD Writeoff Qty</div><div class="value">111,703</div><div class="sub">FTD: 14/06/2026</div></div>
   <div class="kpi teal"><div class="label">Top City (FTD)</div><div class="value" style="font-size:1.15rem">Bangalore</div><div class="sub">31,801 units</div></div>
   <div class="kpi purple"><div class="label">Top City (MTD)</div><div class="value" style="font-size:1.15rem">Bangalore</div><div class="sub">383,760 units</div></div>
   <div class="kpi green"><div class="label">Peak Slot (FTD)</div><div class="value" style="font-size:1rem">1pm to 3pm</div><div class="sub">Highest writeoff entries</div></div>
-  <div class="kpi red"><div class="label">Days in Period</div><div class="value">14</div><div class="sub">2026-06-01 to 2026-06-14</div></div>
+  <div class="kpi red"><div class="label">Days in Period</div><div class="value">14</div><div class="sub">01/06/2026 to 14/06/2026</div></div>
+  <div class="kpi" style="border-left-color:#FF6B6B;cursor:pointer" onclick="openReasonDrill()" title="Click to see category-wise reasons"><div class="label">Most Common Reason</div><div class="value" style="font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">FV Mid-day Dump</div><div class="sub">168835 occurrences — click for details</div></div>
 </div>
 
 <div class="section">
@@ -137,11 +134,11 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
   <div class="tab-row">
     <span style="font-size:.75rem;font-weight:700;color:#888;text-transform:uppercase">Viewing:</span>
     <button class="tab period active" id="overviewTabMTD" onclick="switchCatSlot('mtd')">MTD</button>
-    <button class="tab period" id="overviewTabFTD" onclick="switchCatSlot('ftd')">FTD (2026-06-14)</button>
+    <button class="tab period" id="overviewTabFTD" onclick="switchCatSlot('ftd')">FTD (14/06/2026)</button>
   </div>
   <div class="grid-2">
     <div class="card">
-      <h3 id="catBarTitle">Writeoff Qty by Category &nbsp;<span style="font-size:.75rem;color:#888;font-weight:400">MTD: 2026-06-01 &rarr; 2026-06-14</span></h3>
+      <h3 id="catBarTitle">Writeoff Qty by Category &nbsp;<span style="font-size:.75rem;color:#888;font-weight:400">MTD: 01/06/2026 &rarr; 14/06/2026</span></h3>
       <canvas id="catBar"></canvas>
     </div>
     <div class="card">
@@ -162,7 +159,7 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
     <div class="step-header"><span class="step-badge">1</span><span class="step-title">Select time period</span></div>
     <div class="step-body">
       <button class="tab period" id="periodTabMTD" onclick="switchPeriod('mtd')">MTD</button>
-      <button class="tab period" id="periodTabFTD" onclick="switchPeriod('ftd')">FTD (2026-06-14)</button>
+      <button class="tab period" id="periodTabFTD" onclick="switchPeriod('ftd')">FTD (14/06/2026)</button>
     </div>
   </div>
   <div class="wizard-step hidden" id="step2">
@@ -186,7 +183,6 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
         </div>
         <div class="hmap-actions">
           <button class="btn-sm btn-csv" onclick="downloadHeatmapCSV()">&#11123; CSV</button>
-          <button class="btn-sm btn-pdf-dl" onclick="downloadHeatmapPDF()">&#128438; PDF</button>
         </div>
       </div>
     </div>
@@ -202,7 +198,6 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
         <h3 style="margin:0">&#128200; Top 10 Stores</h3>
         <div style="display:flex;gap:6px">
           <button class="btn-sm btn-csv" onclick="downloadTableCSV('top')">&#11123; CSV</button>
-          <button class="btn-sm btn-pdf-dl" onclick="downloadTablePDF('top')">&#128438; PDF</button>
         </div>
       </div>
       <div class="table-wrap"><table id="topStoreTable"><thead><tr><th>#</th><th>Store</th><th>City</th><th>Total Qty</th></tr></thead><tbody><tr><td>1</td><td>DS-IBPUN-Kharadi</td><td>Pune</td><td>6,416</td></tr>
@@ -222,7 +217,6 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
         <h3 style="margin:0">&#128201; Bottom 10 Stores</h3>
         <div style="display:flex;gap:6px">
           <button class="btn-sm btn-csv" onclick="downloadTableCSV('bot')">&#11123; CSV</button>
-          <button class="btn-sm btn-pdf-dl" onclick="downloadTablePDF('bot')">&#128438; PDF</button>
         </div>
       </div>
       <div class="table-wrap"><table id="botStoreTable"><thead><tr><th>#</th><th>Store</th><th>City</th><th>Total Qty</th></tr></thead><tbody><tr><td>1</td><td>Kolkata Business</td><td>Kolkata</td><td>1</td></tr>
@@ -263,10 +257,19 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
       <button class="tab active" id="drillModeTabQty" onclick="switchDrillMode('qty')">Show Qty</button>
       <div style="margin-left:auto;display:flex;gap:6px">
         <button class="btn-sm btn-csv" onclick="downloadDrillCSV()">&#11123; CSV</button>
-        <button class="btn-sm btn-pdf-dl" onclick="downloadDrillPDF()">&#128438; PDF</button>
       </div>
     </div>
     <div class="heatmap-wrap" id="drillModalHeatmap"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="reasonModal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header">
+      <h2 id="reasonModalTitle">Most Common Writeoff Reasons by Category</h2>
+      <button class="modal-close" onclick="closeReasonModal()">✕</button>
+    </div>
+    <div id="reasonModalContent" style="padding:16px;line-height:1.8"></div>
   </div>
 </div>
 
@@ -290,10 +293,11 @@ const dateLabels = ["2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "202
 const trendData = [{"label": "Fruits and Vegetables", "data": [69977.97, 70369.11, 74904.33, 77802.29, 78632.62, 83841.35, 83564.14, 74796.43, 80520.33, 83032.97, 80289.0, 77928.14, 80309.14, 82404.76], "color": "#2196F3"}, {"label": "Milk", "data": [20404.0, 26108.0, 25395.0, 27765.0, 26565.0, 25788.0, 25572.0, 26644.0, 27033.0, 28814.0, 27130.0, 24296.0, 23723.0, 22994.0], "color": "#4CAF50"}, {"label": "Bread", "data": [2245.0, 2595.0, 2817.0, 2923.0, 2669.0, 2750.0, 2280.0, 2411.0, 2808.0, 2833.0, 2500.0, 2622.0, 2203.0, 2325.0], "color": "#FF9800"}, {"label": "Batter", "data": [718.0, 702.0, 798.0, 1079.0, 970.0, 913.0, 664.0, 734.0, 888.0, 925.0, 950.0, 1027.0, 1112.0, 965.0], "color": "#9C27B0"}, {"label": "Meat and Eggs", "data": [3723.0, 3353.0, 2894.0, 2769.0, 3301.0, 3348.0, 3301.0, 2864.0, 3379.0, 2679.0, 2364.0, 2966.0, 3113.0, 3014.0], "color": "#F44336"}];
 const topStoreData = [{"rank": 1, "store": "DS-IBPUN-Kharadi", "city": "Pune", "qty": 6416.0}, {"rank": 2, "store": "DS-IBBLR-RNSIT", "city": "Bangalore", "qty": 6170.0}, {"rank": 3, "store": "DS-IBBLR-Gokulam", "city": "Bangalore", "qty": 6019.0}, {"rank": 4, "store": "DS-IBPUN-Hinjewadi p", "city": "Pune", "qty": 5976.0}, {"rank": 5, "store": "DS-BNBLR-Byrathi", "city": "Bangalore", "qty": 5824.0}, {"rank": 6, "store": "DS-IBKOL-Bidhannagar", "city": "Kolkata", "qty": 5813.4455}, {"rank": 7, "store": "DS-BNBLR-NW Bellandu", "city": "Bangalore", "qty": 5709.0}, {"rank": 8, "store": "DS-IBDEL-Patel Nagar", "city": "Delhi", "qty": 5664.0}, {"rank": 9, "store": "DS-IBBLR-Chinappalay", "city": "Bangalore", "qty": 5436.35}, {"rank": 10, "store": "DS-BNPUN-NW WadgaonS", "city": "Pune", "qty": 5356.0}];
 const botStoreData = [{"rank": 1, "store": "Kolkata Business", "city": "Kolkata", "qty": 1.0}, {"rank": 2, "store": "Hyderabad Business", "city": "Hyderabad", "qty": 1.0}, {"rank": 3, "store": "DS-IBPUN-Kesnand", "city": "Pune", "qty": 3.0}, {"rank": 4, "store": "Ahmedabad_Business_DC2", "city": "Ahmedabad-Gandhinagar", "qty": 5.0}, {"rank": 5, "store": "Gurgaon Business", "city": "Gurgaon", "qty": 5.0}, {"rank": 6, "store": "Pune Business", "city": "Pune", "qty": 14.0}, {"rank": 7, "store": "DS-BNBLR-VarthurRoad", "city": "Bangalore", "qty": 27.0}, {"rank": 8, "store": "Chennai Business", "city": "Chennai", "qty": 28.0}, {"rank": 9, "store": "Mumbai Business", "city": "Mumbai", "qty": 45.0}, {"rank": 10, "store": "Bangalore Business", "city": "Bangalore", "qty": 170.0}];
+const reasonByCat = {"Fruits and Vegetables": {"reason": "FV Mid-day Dump", "count": 168635, "top5": {"FV Mid-day Dump": 168635, "FV Day-end Dump": 120511, "FV Arrival Quality issue": 37186, "Near-Expiry": 21349, "Quality Issue": 8345}}, "Milk": {"reason": "Near-Expiry", "count": 35768, "top5": {"Near-Expiry": 35768, "Bbdaily milk write off": 6667, "Transit Damage": 5340, "Hub Returns": 5237, "Quality check Issue": 4345}}, "Bread": {"reason": "Near-Expiry", "count": 19318, "top5": {"Near-Expiry": 19318, "Repackaging": 6818, "Hub Returns": 334, "Transit Damage": 170, "Damage": 74}}, "Batter": {"reason": "Near-Expiry", "count": 6416, "top5": {"Near-Expiry": 6416, "Transit Damage": 377, "Hub Returns": 244, "Damage": 107, "Quality Issue": 6}}, "Meat and Eggs": {"reason": "Near-Expiry", "count": 28482, "top5": {"Near-Expiry": 28482, "Repackaging": 2002, "Hub Returns": 924, "Transit Damage": 131, "Damage": 88}}};
 const BAR_COLORS = ['#2196F3','#4CAF50','#FF9800','#9C27B0','#F44336'];
 const SLOT_COLORS = ['#1F4E78','#2e86de','#42a5f5','#66bb6a','#ffa726','#ef5350','#ab47bc','#26c6da','#8d6e63'];
-const MTD_RANGE = '2026-06-01 → 2026-06-14';
-const FTD_DATE = '2026-06-14';
+const MTD_RANGE = '01/06/2026 → 14/06/2026';
+const FTD_DATE = '14/06/2026';
 const SLOT_6 = '1pm to 3pm';
 
 // State
@@ -401,11 +405,11 @@ function pctColor(pct, slotIdx) {
     const rv = Math.round(255 - (255-156)*r), gv = Math.round(199 - 199*r), bv = Math.round(206 - 200*r);
     return {bg: `rgb(${rv},${gv},${bv})`, fg: r > 0.55 ? '#fff' : '#1a1a2e'};
 }
-  // slots 1-5: green ≤5%, red ≥6%
+  // slots 1-5: green ≤5%, red ≥6%  — reversed gradient (darker at 0%, lighter at 5%)
   if (pct <= 5) {
-    const r = pct / 5;
-    const gv = Math.round(198 + (105-198)*r), rv2 = Math.round(198 + (39-198)*r), bv2 = Math.round(198 + (0-198)*r);
-    return {bg: `rgb(${rv2},${gv},${bv2})`, fg: r > 0.6 ? '#fff' : '#1a1a2e'};
+    const r = (5 - pct) / 5;  // reversed: at 0%, r=1 (darker); at 5%, r=0 (lighter)
+    const gv = Math.round(105 + (198-105)*r), rv2 = Math.round(39 + (198-39)*r), bv2 = Math.round(0 + (198-0)*r);
+    return {bg: `rgb(${rv2},${gv},${bv2})`, fg: r > 0.5 ? '#1a1a2e' : '#fff'};
   }
   const r = (pct - 6) / 94;
   const rv = Math.round(255 - (255-156)*r), gv = Math.round(199 - 199*r), bv = Math.round(206 - 200*r);
@@ -584,7 +588,27 @@ function renderDrillModal() {
   document.getElementById('drillModalHeatmap').innerHTML = html;
 }
 
-// ── CSV / PDF download helpers ──
+// ── Reason Modal ──
+function openReasonDrill() {
+  let html = '<table style="width:100%;border-collapse:collapse">';
+  html += '<thead><tr style="background:#1F4E78;color:#fff"><th style="padding:8px;text-align:left;border:1px solid #ccc">Category</th><th style="padding:8px;text-align:left;border:1px solid #ccc">Most Common Reason</th><th style="padding:8px;text-align:center;border:1px solid #ccc">Count</th></tr></thead>';
+  html += '<tbody>';
+  categories.forEach((cat, idx) => {
+    const data = reasonByCat[cat];
+    const bgColor = idx % 2 === 0 ? '#fff' : '#F7FAFD';
+    html += `<tr style="background:${bgColor}"><td style="padding:8px;border:1px solid #ddd;font-weight:600;color:#1F4E78">${cat}</td>`;
+    html += `<td style="padding:8px;border:1px solid #ddd">${data.reason === 'N/A' ? 'No data' : data.reason}</td>`;
+    html += `<td style="padding:8px;border:1px solid #ddd;text-align:center;font-weight:600">${data.count}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('reasonModalContent').innerHTML = html;
+  document.getElementById('reasonModal').classList.add('open');
+}
+function closeReasonModal() {
+  document.getElementById('reasonModal').classList.remove('open');
+}
+
+// ── CSV download helpers ──
 function tableToCSV(headers, rows) {
   const escape = v => `"${String(v).replace(/"/g,'""')}"`;
   return [headers.map(escape).join(','), ...rows.map(r => r.map(escape).join(','))].join('\n');
@@ -594,15 +618,6 @@ function downloadCSV(filename, csv) {
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = filename; a.click();
 }
-function printSection(html, title) {
-  const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>${title}</title>
-    <style>body{font-family:Arial,sans-serif;padding:20px}table{border-collapse:collapse;width:100%;font-size:12px}
-    th{background:#1F4E78;color:#fff;padding:6px 10px;border:1px solid #ccc}td{padding:5px 10px;border:1px solid #ddd}</style></head>
-    <body><h2>${title}</h2>${html}</body></html>`);
-  w.document.close(); w.print();
-}
-
 function downloadHeatmapCSV() {
   if (!hmPeriod || !hmCat || !hmMode) return;
   const src = hmPeriod === 'mtd' ? (hmView === 'region' ? mtdRegionData : mtdStoreData)
@@ -618,20 +633,12 @@ function downloadHeatmapCSV() {
   });
   downloadCSV(`heatmap_${hmCat.replace(/ /g,'_')}_${hmPeriod}.csv`, tableToCSV(headers, rows));
 }
-function downloadHeatmapPDF() {
-  if (!hmPeriod || !hmCat || !hmMode) return;
-  printSection(document.getElementById('mainHeatmap').innerHTML, `Heatmap - ${hmCat} (${hmPeriod.toUpperCase()})`);
-}
 
 function downloadTableCSV(which) {
   const data = which === 'top' ? topStoreData : botStoreData;
   const headers = ['Rank','Store','City','Total Qty'];
   const rows = data.map(r => [r.rank, r.store, r.city, r.qty]);
   downloadCSV(`${which === 'top' ? 'top10' : 'bottom10'}_stores_mtd.csv`, tableToCSV(headers, rows));
-}
-function downloadTablePDF(which) {
-  const tbl = document.getElementById(which === 'top' ? 'topStoreTable' : 'botStoreTable');
-  printSection(tbl.outerHTML, (which === 'top' ? 'Top 10' : 'Bottom 10') + ' Stores - MTD');
 }
 
 function downloadDrillCSV() {
@@ -645,9 +652,6 @@ function downloadDrillCSV() {
     return [r.store, ...vals, r.qty.reduce((a,b)=>a+b,0)];
   });
   downloadCSV(`drill_${drillCity.replace(/ /g,'_')}_${hmCat.replace(/ /g,'_')}.csv`, tableToCSV(headers, csvRows));
-}
-function downloadDrillPDF() {
-  printSection(document.getElementById('drillModalHeatmap').innerHTML, `${drillCity} - Store Detail (${hmCat})`);
 }
 
 // ── Init ──
