@@ -114,7 +114,7 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
   <div class="meta">
     <div>MTD: <strong>01/06/2026 &rarr; 14/06/2026</strong></div>
     <div>FTD: <strong>14/06/2026</strong></div>
-    <div>Generated: <strong>18/06/2026 19:55</strong></div>
+    <div>Generated: <strong>19/06/2026 07:41</strong></div>
   </div>
   </div>
 </header>
@@ -125,7 +125,7 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
   <div class="kpi teal"><div class="label">Top City (FTD)</div><div class="value" style="font-size:1.15rem">Bangalore</div><div class="sub">31,801 units</div></div>
   <div class="kpi purple"><div class="label">Top City (MTD)</div><div class="value" style="font-size:1.15rem">Bangalore</div><div class="sub">383,760 units</div></div>
   <div class="kpi red"><div class="label">Days in Period</div><div class="value">14</div><div class="sub">01/06/2026 to 14/06/2026</div></div>
-  <div class="kpi" style="border-left-color:#FF6B6B;cursor:pointer" onclick="openReasonDrill()" title="Click to see category-wise reasons"><div class="label">Most Common Reason</div><div class="value" style="font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">FV Mid-day Dump</div><div class="sub">168835 occurrences — click for details</div></div>
+  <div class="kpi" style="border-left-color:#FF6B6B;cursor:pointer" onclick="openReasonDrill()" title="Click to see top 3 reasons per category"><div class="label">Top Writeoff Reason</div><div class="value" style="font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">FV Mid-day Dump</div><div class="sub">168835 occurrences — click for top 3 by category</div></div>
 </div>
 
 <div class="section">
@@ -263,7 +263,7 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
 </div>
 
 <div class="modal-overlay" id="reasonModal">
-  <div class="modal" style="max-width:700px">
+  <div class="modal" style="max-width:680px">
     <div class="modal-header">
       <h2 id="reasonModalTitle">Top 3 Writeoff Reasons by Category</h2>
       <button class="modal-close" onclick="closeReasonModal()">✕</button>
@@ -292,7 +292,7 @@ const dateLabels = ["2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "202
 const trendData = [{"label": "Fruits and Vegetables", "data": [69977.97, 70369.11, 74904.33, 77802.29, 78632.62, 83841.35, 83564.14, 74796.43, 80520.33, 83032.97, 80289.0, 77928.14, 80309.14, 82404.76], "color": "#2196F3"}, {"label": "Milk", "data": [20404.0, 26108.0, 25395.0, 27765.0, 26565.0, 25788.0, 25572.0, 26644.0, 27033.0, 28814.0, 27130.0, 24296.0, 23723.0, 22994.0], "color": "#4CAF50"}, {"label": "Bread", "data": [2245.0, 2595.0, 2817.0, 2923.0, 2669.0, 2750.0, 2280.0, 2411.0, 2808.0, 2833.0, 2500.0, 2622.0, 2203.0, 2325.0], "color": "#FF9800"}, {"label": "Batter", "data": [718.0, 702.0, 798.0, 1079.0, 970.0, 913.0, 664.0, 734.0, 888.0, 925.0, 950.0, 1027.0, 1112.0, 965.0], "color": "#9C27B0"}, {"label": "Meat and Eggs", "data": [3723.0, 3353.0, 2894.0, 2769.0, 3301.0, 3348.0, 3301.0, 2864.0, 3379.0, 2679.0, 2364.0, 2966.0, 3113.0, 3014.0], "color": "#F44336"}];
 const topStoreData = [{"rank": 1, "store": "DS-IBPUN-Kharadi", "city": "Pune", "qty": 6416.0}, {"rank": 2, "store": "DS-IBBLR-RNSIT", "city": "Bangalore", "qty": 6170.0}, {"rank": 3, "store": "DS-IBBLR-Gokulam", "city": "Bangalore", "qty": 6019.0}, {"rank": 4, "store": "DS-IBPUN-Hinjewadi p", "city": "Pune", "qty": 5976.0}, {"rank": 5, "store": "DS-BNBLR-Byrathi", "city": "Bangalore", "qty": 5824.0}, {"rank": 6, "store": "DS-IBKOL-Bidhannagar", "city": "Kolkata", "qty": 5813.4455}, {"rank": 7, "store": "DS-BNBLR-NW Bellandu", "city": "Bangalore", "qty": 5709.0}, {"rank": 8, "store": "DS-IBDEL-Patel Nagar", "city": "Delhi", "qty": 5664.0}, {"rank": 9, "store": "DS-IBBLR-Chinappalay", "city": "Bangalore", "qty": 5436.35}, {"rank": 10, "store": "DS-BNPUN-NW WadgaonS", "city": "Pune", "qty": 5356.0}];
 const botStoreData = [{"rank": 1, "store": "Kolkata Business", "city": "Kolkata", "qty": 1.0}, {"rank": 2, "store": "Hyderabad Business", "city": "Hyderabad", "qty": 1.0}, {"rank": 3, "store": "DS-IBPUN-Kesnand", "city": "Pune", "qty": 3.0}, {"rank": 4, "store": "Ahmedabad_Business_DC2", "city": "Ahmedabad-Gandhinagar", "qty": 5.0}, {"rank": 5, "store": "Gurgaon Business", "city": "Gurgaon", "qty": 5.0}, {"rank": 6, "store": "Pune Business", "city": "Pune", "qty": 14.0}, {"rank": 7, "store": "DS-BNBLR-VarthurRoad", "city": "Bangalore", "qty": 27.0}, {"rank": 8, "store": "Chennai Business", "city": "Chennai", "qty": 28.0}, {"rank": 9, "store": "Mumbai Business", "city": "Mumbai", "qty": 45.0}, {"rank": 10, "store": "Bangalore Business", "city": "Bangalore", "qty": 170.0}];
-const reasonByCat = {"Fruits and Vegetables": {"top_reason": "FV Mid-day Dump", "count": 168635, "top3": [{"rank": 1, "reason": "FV Mid-day Dump", "count": 168635, "pct": 45.1}, {"rank": 2, "reason": "FV Day-end Dump", "count": 120511, "pct": 32.2}, {"rank": 3, "reason": "FV Arrival Quality issue", "count": 37186, "pct": 9.9}]}, "Milk": {"top_reason": "Near-Expiry", "count": 35768, "top3": [{"rank": 1, "reason": "Near-Expiry", "count": 35768, "pct": 47.2}, {"rank": 2, "reason": "Bbdaily milk write off", "count": 6667, "pct": 8.8}, {"rank": 3, "reason": "Transit Damage", "count": 5340, "pct": 7.0}]}, "Bread": {"top_reason": "Near-Expiry", "count": 19318, "top3": [{"rank": 1, "reason": "Near-Expiry", "count": 19318, "pct": 69.0}, {"rank": 2, "reason": "Repackaging", "count": 6818, "pct": 24.4}, {"rank": 3, "reason": "Hub Returns", "count": 334, "pct": 1.2}]}, "Batter": {"top_reason": "Near-Expiry", "count": 6416, "top3": [{"rank": 1, "reason": "Near-Expiry", "count": 6416, "pct": 81.2}, {"rank": 2, "reason": "Transit Damage", "count": 377, "pct": 4.8}, {"rank": 3, "reason": "Hub Returns", "count": 244, "pct": 3.1}]}, "Meat and Eggs": {"top_reason": "Near-Expiry", "count": 28482, "top3": [{"rank": 1, "reason": "Near-Expiry", "count": 28482, "pct": 87.9}, {"rank": 2, "reason": "Repackaging", "count": 2002, "pct": 6.2}, {"rank": 3, "reason": "Hub Returns", "count": 924, "pct": 2.9}]}};
+const reasonByCat = {"Fruits and Vegetables": {"reason": "FV Mid-day Dump", "count": 168635, "top5": {"FV Mid-day Dump": 168635, "FV Day-end Dump": 120511, "FV Arrival Quality issue": 37186, "Near-Expiry": 21349, "Quality Issue": 8345}}, "Milk": {"reason": "Near-Expiry", "count": 35768, "top5": {"Near-Expiry": 35768, "Bbdaily milk write off": 6667, "Transit Damage": 5340, "Hub Returns": 5237, "Quality check Issue": 4345}}, "Bread": {"reason": "Near-Expiry", "count": 19318, "top5": {"Near-Expiry": 19318, "Repackaging": 6818, "Hub Returns": 334, "Transit Damage": 170, "Damage": 74}}, "Batter": {"reason": "Near-Expiry", "count": 6416, "top5": {"Near-Expiry": 6416, "Transit Damage": 377, "Hub Returns": 244, "Damage": 107, "Quality Issue": 6}}, "Meat and Eggs": {"reason": "Near-Expiry", "count": 28482, "top5": {"Near-Expiry": 28482, "Repackaging": 2002, "Hub Returns": 924, "Transit Damage": 131, "Damage": 88}}};
 const BAR_COLORS = ['#2196F3','#4CAF50','#FF9800','#9C27B0','#F44336'];
 const SLOT_COLORS = ['#1F4E78','#2e86de','#42a5f5','#66bb6a','#ffa726','#ef5350','#ab47bc','#26c6da','#8d6e63'];
 const MTD_RANGE = '01/06/2026 → 14/06/2026';
@@ -587,32 +587,40 @@ function renderDrillModal() {
   document.getElementById('drillModalHeatmap').innerHTML = html;
 }
 
-// ── Reason Modal ──
+// ── Reason Modal: Top 3 Reasons per Category ──
 function openReasonDrill() {
-  let html = '<table style="width:100%;border-collapse:collapse">';
-  html += '<thead><tr style="background:#1F4E78;color:#fff"><th style="padding:10px;text-align:left;border:1px solid #ccc">Category</th><th style="padding:10px;text-align:center;border:1px solid #ccc;width:30px">#</th><th style="padding:10px;text-align:left;border:1px solid #ccc;flex:1">Top Reasons</th></tr></thead>';
-  html += '<tbody>';
-  categories.forEach((cat, idx) => {
+  let html = '';
+  categories.forEach((cat) => {
     const data = reasonByCat[cat];
-    const bgColor = idx % 2 === 0 ? '#fff' : '#F7FAFD';
-    const top3 = data.top3 || [];
-    
-    if (top3.length === 0) {
-      html += `<tr style="background:${bgColor}"><td style="padding:10px;border:1px solid #ddd;font-weight:600;color:#1F4E78">${cat}</td>`;
-      html += `<td colspan="2" style="padding:10px;border:1px solid #ddd;color:#888">No data</td></tr>`;
+    const entries = Object.entries(data.top5 || {}).slice(0, 3);
+    const catTotal = Object.values(data.top5 || {}).reduce((a, b) => a + b, 0);
+
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-weight:700;color:#1F4E78;font-size:.9rem;margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid #D9EAF7">${cat}</div>`;
+
+    if (!entries.length) {
+      html += `<div style="color:#888;font-size:.82rem;padding:4px 0 4px 4px">No writeoff reason data.</div>`;
     } else {
-      html += `<tr style="background:${bgColor}"><td rowspan="${top3.length}" style="padding:10px;border:1px solid #ddd;font-weight:600;color:#1F4E78;vertical-align:top">${cat}</td>`;
-      top3.forEach((item, i) => {
-        if (i > 0) html += `<tr style="background:${bgColor}">`;
-        html += `<td style="padding:8px;border:1px solid #ddd;text-align:center;font-weight:700;color:#2e86de">${item.rank}</td>`;
-        html += `<td style="padding:8px;border:1px solid #ddd;font-size:.85rem">`;
-        html += `<div style="font-weight:600">${item.reason}</div>`;
-        html += `<div style="color:#666;font-size:.8rem">${item.count} occurrences (${item.pct}%)</div>`;
-        html += `</td></tr>`;
+      entries.forEach(([reason, count], i) => {
+        const pct = catTotal > 0 ? Math.round((count / catTotal) * 100) : 0;
+        const barColor = i === 0 ? '#1F4E78' : (i === 1 ? '#2e86de' : '#90CAF9');
+        html += `
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <div style="min-width:18px;font-weight:700;color:#888;font-size:.78rem">#${i + 1}</div>
+            <div style="flex:1">
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:2px">
+                <span style="font-weight:600;color:#333">${reason}</span>
+                <span style="color:#666">${count} (${pct}%)</span>
+              </div>
+              <div style="background:#EEF2F7;border-radius:4px;height:8px;overflow:hidden">
+                <div style="width:${pct}%;background:${barColor};height:100%"></div>
+              </div>
+            </div>
+          </div>`;
       });
     }
+    html += `</div>`;
   });
-  html += '</tbody></table>';
   document.getElementById('reasonModalContent').innerHTML = html;
   document.getElementById('reasonModal').classList.add('open');
 }
