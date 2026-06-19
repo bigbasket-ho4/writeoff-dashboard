@@ -114,7 +114,7 @@ footer{text-align:center;padding:18px;font-size:.75rem;color:#999;background:#ff
   <div class="meta">
     <div>MTD: <strong>01/06/2026 &rarr; 14/06/2026</strong></div>
     <div>FTD: <strong>14/06/2026</strong></div>
-    <div>Generated: <strong>19/06/2026 10:04</strong></div>
+    <div>Generated: <strong>19/06/2026 10:59</strong></div>
   </div>
   </div>
 </header>
@@ -388,30 +388,49 @@ function openSlotDrill(label, cityData) {
 function closeSlotDrill() { document.getElementById('slotDrillOverlay').classList.remove('open'); }
 
 // ── Colour helpers — new slot rules ──
-// Slots 1–5 (indices 0–4): green ≤5%, red ≥6%
-// Slot 6 (index 5, "1pm to 3pm"): always white/black
-// Slots 7–9 (indices 6–8): red only, no green; zero = green everywhere
-function slotIndex(slotLabel) { return slotLabels.indexOf(slotLabel); }
+// Slot colour rules:
+// Group A (indices 0-4: 12am-5am, 5am-7am, 7am-9am, 9am-11am, 11am-1pm):
+//   0%    -> dark green (same as 1%)
+//   1-5%  -> green, dark(1%) to light(5%)
+//   6-100%-> red, light(6%) to dark(100%)
+// Group B (index 5: 1pm-3pm):
+//   0%    -> dark green; anything else -> no fill (white)
+// Group C (indices 6-8: 3pm-6pm, 6pm-9pm, 9pm-12am):
+//   0%    -> dark green; 1-100% -> red, light(1%) to dark(100%)
 
 function pctColor(pct, slotIdx) {
-  if (pct === 0) return {bg: '#C6EFCE', fg: '#276221'}; // zero = green always
-  if (slotIdx === 5) return {bg: '#ffffff', fg: '#000000'}; // slot 6 always white/black
-  if (slotIdx >= 6) {
-    if (pct === 0) return {bg: '#C6EFCE', fg: '#276221'};  // already handled above but kept for clarity
-    // any non-zero = red, scale intensity by value
-    const r = Math.max((pct - 1) / 99, 0.05);
-    const rv = Math.round(255 - (255-156)*r), gv = Math.round(199 - 199*r), bv = Math.round(206 - 200*r);
-    return {bg: `rgb(${rv},${gv},${bv})`, fg: r > 0.55 ? '#fff' : '#1a1a2e'};
-}
-  // slots 1-5: green ≤5%, red ≥6%  — reversed gradient (darker at 0%, lighter at 5%)
-  if (pct <= 5) {
-    const r = (5 - pct) / 5;  // reversed: at 0%, r=1 (darker); at 5%, r=0 (lighter)
-    const gv = Math.round(105 + (198-105)*r), rv2 = Math.round(39 + (198-39)*r), bv2 = Math.round(0 + (198-0)*r);
-    return {bg: `rgb(${rv2},${gv},${bv2})`, fg: r > 0.5 ? '#1a1a2e' : '#fff'};
+  // Dark green RGB: (27,94,32)   Light green RGB: (200,230,201)
+  // Light red RGB:  (255,205,210) Dark red RGB:   (183,28,28)
+  function lerpRGB(r1,g1,b1, r2,g2,b2, t) {
+    t = Math.min(Math.max(t,0),1);
+    return `rgb(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2-b1)*t)})`;
   }
-  const r = (pct - 6) / 94;
-  const rv = Math.round(255 - (255-156)*r), gv = Math.round(199 - 199*r), bv = Math.round(206 - 200*r);
-  return {bg: `rgb(${rv},${gv},${bv})`, fg: r > 0.55 ? '#fff' : '#1a1a2e'};
+  const DARK_GREEN  = [27,  94,  32 ];
+  const LIGHT_GREEN = [200, 230, 201];
+  const LIGHT_RED   = [255, 205, 210];
+  const DARK_RED    = [183, 28,  28  ];
+
+  // Group B: 1pm-3pm
+  if (slotIdx === 5) {
+    if (pct === 0) return {bg: lerpRGB(...DARK_GREEN,...DARK_GREEN,0), fg: '#ffffff'};
+    return {bg: '#ffffff', fg: '#1a1a2e'};
+  }
+  // Group C: 3pm-6pm, 6pm-9pm, 9pm-12am
+  if (slotIdx >= 6) {
+    if (pct === 0) return {bg: lerpRGB(...DARK_GREEN,...DARK_GREEN,0), fg: '#ffffff'};
+    const t = Math.max((pct - 1) / (100 - 1), 0);
+    const bg = lerpRGB(...LIGHT_RED,...DARK_RED,t);
+    return {bg, fg: t > 0.55 ? '#ffffff' : '#1a1a2e'};
+  }
+  // Group A: all early/mid slots
+  if (pct === 0 || pct === 1) return {bg: lerpRGB(...DARK_GREEN,...DARK_GREEN,0), fg: '#ffffff'};
+  if (pct <= 5) {
+    const t = (pct - 1) / (5 - 1);   // 0 at 1%(dark) -> 1 at 5%(light)
+    return {bg: lerpRGB(...DARK_GREEN,...LIGHT_GREEN,t), fg: t > 0.6 ? '#276221' : '#ffffff'};
+  }
+  const t = Math.max((pct - 6) / (100 - 6), 0);
+  const bg = lerpRGB(...LIGHT_RED,...DARK_RED,t);
+  return {bg, fg: t > 0.55 ? '#ffffff' : '#1a1a2e'};
 }
 
 function qtyColor(val, maxVal) {
